@@ -54,8 +54,8 @@ int main() {
 	printf("Digite o valor de itmax:");
 	scanf("%d",&itmax);
 	
-	x = (double*)malloc(itmax*sizeof(int));		// fiz uma matriz pra por os resultados das iteracoes x^[k], onde k vai de 0 a itmax(k+1). ela tem n linhas e itmax colunas.
-	for (i = 0; i < itmax ; i++){
+	x = (double*)malloc(itmax+1*sizeof(int));		// fiz uma matriz pra por os resultados das iteracoes x^[k], onde k vai de 0 a itmax(k+1). ela tem n linhas e itmax colunas.
+	for (i = 0; i < itmax+1 ; i++){
 		x[i] = (double*)malloc(lin*sizeof(int));
 	}
 
@@ -64,16 +64,23 @@ int main() {
 	}
 	
 	err = (double*)malloc(lin*sizeof(int));
+	
 	//calculo de cada iteraçao
-	for (k = 1; k <= itmax; k++){
+	
+	for (k = 1; k <= itmax + 2 ; k++){
 		while(erro >= e){
-			//calculo do Xi
+			if (k + 1 > itmax){
+				printf("metodo diverge");
+				break;
+			}
+			//calculo do X[k+1]
+			
 		
 		
 			//CALCULO DO MODULO DO ERRO.
 			// max ||x[k][n] - x[k+1][n]||, n = 0,1,2...lin
 			for (i = 0 ; i < lin; i++){
-				err[i] = x[k][i]-x[k-1][i];
+				err[i] = x[k][i]-x[k-1][i]; //nesse caso k+1 vira k e k vira k-1 ?
 				
 				if (err[i] < 0){
 					err[i] *= -1;
@@ -88,10 +95,6 @@ int main() {
 			
 			erro = emax; 		// se o erro for memor ou igual a e, o loop do while acaba.
 			
-			if (k + 1 > itmax){
-				printf("metodo diverge");
-				break;
-			}
 		}
 		printf("acabou");
 			break;
