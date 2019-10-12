@@ -1,0 +1,1 @@
+# Calculo-numerico_trabalho-Gauss-Seidel-
